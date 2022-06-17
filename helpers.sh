@@ -7,7 +7,7 @@
 #========================================
 
 # nome do container que será executado o script
-readonly CONTAINER_NAME="stack-bash_localstack_1"
+readonly CONTAINER_NAME="localstack-scripts_localstack_1"
 # variavel que diz se o container está sendo executado ou não
 declare RUNNING_IN_CONTAINER=0
 

@@ -19,9 +19,10 @@ function create_queue() {
         create_queue
     else
         if [ $RUNNING_IN_CONTAINER ]; then
-            HOST=localstack
+            HOST=localhost
         else
-            HOST=0.0.0.0
+            msgc -red2 "You need to start the container!"
+            exit 0
         fi
         msgc -gre "aws --endpoint-url=http://$HOST:4566 sqs create-queue --queue-name $queue"
         aws --endpoint-url=http://$HOST:4566 sqs create-queue --queue-name $queue
@@ -39,9 +40,10 @@ function delete_queue() {
         delete_queue
     else
         if [ $RUNNING_IN_CONTAINER ]; then
-            HOST=localstack
+            HOST=localhost
         else
-            HOST=0.0.0.0
+            msgc -red2 "You need to start the container!"
+            exit 0
         fi
         echo "aws --endpoint-url=http://$HOST:4566 sqs get-queue-url --queue-name $1"
         aws --endpoint-url=http://$HOST:4566 sqs get-queue-url --queue-name $1
@@ -65,9 +67,9 @@ function delete_queue() {
 function list_queue() {
     echo $RUNNING_IN_CONTAINER
     if [ $RUNNING_IN_CONTAINER ]; then
-        HOST=localstack
+        HOST=localhost
     else
-        HOST=0.0.0.0
+       exit 0
     fi
     msgc -gre "aws --endpoint-url=http://$HOST:4566 sqs list-queues"
     aws --endpoint-url=http://$HOST:4566 sqs list-queues
@@ -76,9 +78,10 @@ function list_queue() {
 # função para receber mensagem
 function receive_message() {
     if [ $RUNNING_IN_CONTAINER ]; then
-        HOST=localstack
+        HOST=localhost
     else
-        HOST=0.0.0.0
+        msgc -red2 "You need to start the container!"
+        exit 0
     fi
 
     QUEUE=$1
